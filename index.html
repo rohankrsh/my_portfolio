@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>rohanKrishna_Portfolio</title>
+  <title>RohanKrishna Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -92,7 +92,7 @@
 
     #darkModeToggle {
       position: absolute;
-      top: 550px;
+      top: 20px;
       right: 20px;
       background: rgba(255, 255, 255, 0.1);
       border: none;
@@ -186,6 +186,67 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* ✅ Mobile Responsive Tweaks */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      .tagline {
+        font-size: 1.4rem;
+      }
+
+      #darkModeToggle {
+        padding: 10px;
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 50px 15px;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .social-icons a {
+        font-size: 1.8rem;
+        margin: 0 8px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      footer {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .tagline {
+        font-size: 1.2rem;
+      }
+
+      .social-icons a {
+        font-size: 1.6rem;
+        margin: 0 6px;
+      }
+
+      #darkModeToggle {
+        padding: 8px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -247,7 +308,7 @@
     <h2>Experience</h2>
     <ul>
       <li><strong>Data Science Intern @ <a href="https://www.camerinfolks.com" target="_blank">Camerin Folks</a></strong> – Nov 2024 to June 2024<br>Developed core Python scripts for data cleaning, EDA, and visualization using Pandas, NumPy, and Matplotlib.</li>
-      <li><strong>AI Engineer</strong> – August 2025 @ Camerin Innovate</a> <br>Currently building an AI-powered diagnostic assistant with real-time transcription capabilities.</li>
+      <li><strong>AI Engineer</strong> – August 2025 @ Camerin Innovate <br>Currently building an AI-powered diagnostic assistant with real-time transcription capabilities.</li>
     </ul>
   </section>
 
@@ -263,7 +324,6 @@
   </footer>
 
   <script>
-    // Dark mode toggle
     const toggleBtn = document.getElementById("darkModeToggle");
     const icon = toggleBtn.querySelector("i");
 
@@ -281,20 +341,9 @@
       setTheme(currentTheme === "dark" ? "light" : "dark");
     });
 
-    // Typing effect
-    const roles = [
-      "AI Engineer",
-      "ML Engineer",
-      "Software Developer",
-      "Data Scientist",
-      "Data Engineer"
-    ];
-    let i = 0;
-    let j = 0;
-    let isDeleting = false;
-    const typingSpeed = 100;
-    const erasingSpeed = 50;
-    const delayBetweenWords = 1500;
+    const roles = ["AI Engineer", "ML Engineer", "Software Developer", "Data Scientist", "Data Engineer"];
+    let i = 0, j = 0, isDeleting = false;
+    const typingSpeed = 100, erasingSpeed = 50, delayBetweenWords = 1500;
     const typingTextElement = document.getElementById("typing-text");
 
     function type() {
@@ -323,3 +372,4 @@
   </script>
 </body>
 </html>
+
