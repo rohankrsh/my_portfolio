@@ -34,12 +34,16 @@
       color: var(--text-color);
       line-height: 1.6;
       transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
     }
 
+    /* Enhanced Header with Tech Background */
     header {
       position: relative;
       height: 100vh;
-      background: url('bg.jpg') center/cover fixed no-repeat;
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80') center/cover fixed no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -49,22 +53,17 @@
       text-align: center;
     }
 
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 0;
-    }
-
     header > div {
       position: relative;
       z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
     }
 
     header h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       animation: fadeInDown 1s ease-out;
+      margin-bottom: 20px;
     }
 
     .tagline {
@@ -75,38 +74,40 @@
     }
 
     .social-icons {
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     .social-icons a {
       color: white;
-      margin: 0 10px;
-      font-size: 1.5rem;
-      transition: transform 0.2s ease;
+      margin: 0 15px;
+      font-size: 1.8rem;
+      transition: transform 0.3s ease, color 0.3s;
     }
 
     .social-icons a:hover {
-      transform: scale(1.2);
+      transform: translateY(-5px) scale(1.2);
       color: #ffd700;
     }
 
     #darkModeToggle {
-      position: absolute;
+      position: fixed;
       top: 20px;
       right: 20px;
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-radius: 50%;
       font-size: 1.2rem;
       color: white;
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
       z-index: 100;
+      backdrop-filter: blur(5px);
     }
 
     #darkModeToggle:hover {
       transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
     }
 
     [data-theme="dark"] #darkModeToggle {
@@ -124,6 +125,36 @@
       50% { opacity: 0; }
     }
 
+    /* Parallax Sections */
+    .parallax-section {
+      position: relative;
+      min-height: 400px;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+    }
+
+    .parallax-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .parallax-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      max-width: 800px;
+    }
+
     section {
       padding: 80px 20px;
       max-width: 1000px;
@@ -134,6 +165,18 @@
     h2 {
       font-size: 2rem;
       margin-bottom: 20px;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--link-color);
+      border-radius: 2px;
     }
 
     .projects {
@@ -147,17 +190,44 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, background 0.3s;
+      transition: transform 0.3s ease, background 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
     }
 
     .card:hover {
       transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--link-color), #ffd700);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
     }
 
     .card img {
-      max-width: 100%;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
       border-radius: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
     }
 
     footer {
@@ -170,6 +240,52 @@
     a {
       color: var(--link-color);
       text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #ffd700;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--link-color);
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+      }
+      40% {
+        transform: translateY(-20px) translateX(-50%);
+      }
+      60% {
+        transform: translateY(-10px) translateX(-50%);
+      }
     }
 
     @keyframes fadeIn {
@@ -187,10 +303,452 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Progress bar */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      z-index: 1000;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--link-color), #ffd700);
+      width: 0%;
+      transition: width 0.2s ease;
+    }
+
+    /* Code animation in header */
+    .code-animation {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 200px;
+      text-align: right;
+      animation: fadeIn 2s ease-out;
+    }
+
+    /* Project links */
+    .project-links {
+      margin-top: 15px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      background: var(--link-color);
+      color: white;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .project-link:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    [data-theme="dark"] .project-link {
+      background: #4ea8de;
+    }
+
+    [data-theme="dark"] .project-link:hover {
+      background: #2d8bc8;
+    }
+
+    /* Enhanced YouTube-themed image for UtubeGist */
+    .youtube-theme-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .youtube-player {
+      position: relative;
+      width: 80%;
+      height: 70%;
+      background: #282828;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .video-controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .progress-bar-video {
+      flex-grow: 1;
+      height: 4px;
+      background: #555;
+      border-radius: 2px;
+      margin: 0 10px;
+      overflow: hidden;
+    }
+
+    .progress-video {
+      height: 100%;
+      width: 65%;
+      background: #ff0000;
+      border-radius: 2px;
+    }
+
+    .youtube-play-button {
+      width: 40px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .video-thumbnails {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .thumbnail {
+      width: 40px;
+      height: 25px;
+      background: #444;
+      border-radius: 3px;
+      border: 1px solid #666;
+    }
+
+    .ai-processing {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.6rem;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .ai-processing i {
+      color: #ff0000;
+    }
+
+    .summary-box {
+      position: absolute;
+      bottom: 40px;
+      right: 10px;
+      width: 70px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .summary-box .line {
+      width: 100%;
+      height: 3px;
+      background: #333;
+      margin: 2px 0;
+      border-radius: 2px;
+    }
+
+    .line.short {
+      width: 70%;
+    }
+
+    .data-stream {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .data-particle {
+      position: absolute;
+      background: rgba(255, 0, 0, 0.7);
+      border-radius: 50%;
+      animation: float-up 15s linear infinite;
+    }
+
+    .transcript-text {
+      position: absolute;
+      color: white;
+      font-size: 0.5rem;
+      opacity: 0.7;
+      animation: fadeInOut 8s infinite;
+    }
+
+    /* Enhanced Medical-themed image for LifeCurAI */
+    .medical-theme-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, #0c2461, #1e3799);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .medical-dashboard {
+      position: relative;
+      width: 85%;
+      height: 75%;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .dashboard-header {
+      height: 25px;
+      background: #0c2461;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      color: white;
+      font-size: 0.6rem;
+      font-weight: bold;
+    }
+
+    .dashboard-content {
+      height: calc(100% - 25px);
+      display: flex;
+    }
+
+    .patient-side {
+      width: 40%;
+      background: #f8f9fa;
+      border-right: 1px solid #e9ecef;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .doctor-icon {
+      width: 30px;
+      height: 30px;
+      background: #4a69bd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.7rem;
+    }
+
+    .symptoms-list {
+      flex-grow: 1;
+      font-size: 0.5rem;
+      color: #333;
+    }
+
+    .symptom-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 2px;
+    }
+
+    .symptom-dot {
+      width: 4px;
+      height: 4px;
+      background: #e74c3c;
+      border-radius: 50%;
+    }
+
+    .ai-side {
+      width: 60%;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .ai-analysis {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .ai-icon {
+      width: 20px;
+      height: 20px;
+      background: #27ae60;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.6rem;
+    }
+
+    .diagnosis-box {
+      flex-grow: 1;
+      background: #e8f6f3;
+      border-radius: 4px;
+      padding: 5px;
+      font-size: 0.5rem;
+      color: #1d8348;
+      border-left: 3px solid #27ae60;
+    }
+
+    .treatment-plan {
+      height: 25px;
+      background: #d6eaf8;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 0.5rem;
+      color: #2874a6;
+      border-left: 3px solid #3498db;
+    }
+
+    .medical-data-stream {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .medical-particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: medical-float 12s linear infinite;
+    }
+
+    .heartbeat {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 40px;
+      height: 20px;
+    }
+
+    .heartbeat-line {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      position: relative;
+    }
+
+    .pulse {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #e74c3c;
+      animation: pulse 1.5s infinite;
+    }
+
+    .pulse:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .pulse:nth-child(3) {
+      animation-delay: 1s;
+    }
+
+    @keyframes float-up {
+      0% {
+        transform: translateY(180px) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-50px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes medical-float {
+      0% {
+        transform: translateY(180px) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.7;
+      }
+      90% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-50px) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+      50% {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+    }
+
     /* ✅ Mobile Responsive Tweaks */
     @media (max-width: 768px) {
       header h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
       }
 
       .tagline {
@@ -226,11 +784,53 @@
       footer {
         font-size: 0.9rem;
       }
+
+      .parallax-section {
+        min-height: 300px;
+        background-attachment: scroll;
+      }
+
+      .code-animation {
+        display: none;
+      }
+
+      .project-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .youtube-player {
+        width: 85%;
+        height: 65%;
+      }
+
+      .thumbnail {
+        width: 30px;
+        height: 20px;
+      }
+
+      .summary-box {
+        width: 60px;
+        height: 40px;
+      }
+
+      .medical-dashboard {
+        width: 90%;
+        height: 70%;
+      }
+
+      .dashboard-header {
+        font-size: 0.5rem;
+      }
+
+      .symptoms-list, .diagnosis-box, .treatment-plan {
+        font-size: 0.45rem;
+      }
     }
 
     @media (max-width: 480px) {
       header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
 
       .tagline {
@@ -251,90 +851,223 @@
 </head>
 <body>
 
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
   <button id="darkModeToggle" title="Toggle Theme">
     <i class="fas fa-moon"></i>
   </button>
+
+  <!-- Floating Particles -->
+  <div class="particles" id="particles"></div>
 
   <header>
     <div>
       <h1>Hi, I'm RohanKrishna K</h1>
       <p class="tagline"><span id="typing-text"></span><span class="cursor">|</span></p>
-      <p class="tagline"><strong>“If you Could, Code IT !”</strong></p>
+      <p class="tagline"><strong>"If you Could, Code IT !"</strong></p>
       <div class="social-icons">
         <a href="https://www.linkedin.com/in/rohankrisknak/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <a href="https://github.com/rohankrsh" title="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.instagram.com/rohan_krsh/" title="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="mailto:rohankrishnak075@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-<!--         <a href="https://x.com/rohankriskna" title="X (Twitter)"><img src="https://cdn.simpleicons.org/x/FFFFFF" alt="X" style="height: 24px; vertical-align: middle;"></a> -->
-
-
-        
       </div>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="code-animation">
+      <span>// Building the future with code</span><br>
+      <span>while(alive) {</span><br>
+      <span>&nbsp;&nbsp;code();</span><br>
+      <span>&nbsp;&nbsp;learn();</span><br>
+      <span>&nbsp;&nbsp;innovate();</span><br>
+      <span>}</span>
     </div>
   </header>
 
   <section id="about">
     <h2>About Me</h2>
     <p>
-MCA graduate with practical experience in machine learning, data analysis, and AI-driven application development. Skilled in Python programming, software development, and deploying scalable solutions, I am passionate about building intelligent systems that deliver actionable insights and real-world impact. Beyond technical expertise, I bring strong problem-solving abilities, adaptability, and a collaborative mindset. I excel in communicating complex ideas clearly, managing time effectively, and working both independently and in team environments. With a keen eye for detail and a growth-oriented attitude, I continuously seek opportunities to innovate and contribute to impactful projects.
+      MCA graduate with practical experience in machine learning, data analysis, and AI-driven application development. Skilled in Python programming, software development, and deploying scalable solutions, I am passionate about building intelligent systems that deliver actionable insights and real-world impact. Beyond technical expertise, I bring strong problem-solving abilities, adaptability, and a collaborative mindset. I excel in communicating complex ideas clearly, managing time effectively, and working both independently and in team environments. With a keen eye for detail and a growth-oriented attitude, I continuously seek opportunities to innovate and contribute to impactful projects.
     </p>
   </section>
 
-  
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="projects">
-    <div class="card">
-      <img src="https://placehold.co/300x150?text=LifeCurAI" alt="LifeCurAI Project">
-      <h3>LifeCurAI - AI Powered Diagnostic Assistant</h3>
-      <p>Converts doctor–patient conversations into text, detects symptoms, predicts diseases using a Random Forest model, and generates treatment plans. Includes drug side effect checks via OpenFDA API in a Gradio UI.</p>
-      <p><strong>Stack:</strong> OpenAI Whisper, Python, Random Forest, Gradio, OpenFDA API</p>
-      <a href="https://colab.research.google.com/drive/1rufvmcZ-H_wSjZKHfC_DXY65tTkZfrXM?usp=sharing" target="_blank">Google Colab →</a>
-    </div>
-
-    <div class="card">
-      <img src="https://placehold.co/300x150?text=UtubeGist" alt="UtubeGist Project">
-      <h3>UtubeGist</h3>
-      <p>AI summarizer for YouTube videos using OpenAI APIs and transcript parsing for Q&A interaction with a Gradio UI.</p>
-      <p><strong>Stack:</strong> OpenAI, Python, Transformers, Gradio</p>
-      <a href="https://colab.research.google.com/drive/15sgB1lyD6IZH6B3X55s-xCDCYfF2ozmA?usp=sharing" target="_blank">Google Colab →</a>
-    </div>
-
-    <div class="card">
-      <img src="https://placehold.co/300x150?text=Hoopwatch" alt="Hoopwatch Project">
-      <h3>Hoopwatch</h3>
-      <p>AI referee tool using YOLO and pose estimation for sports officiating and training.</p>
-      <p><strong>Stack:</strong> YOLO, OpenCV, Python, Django</p>
-    </div>
-
-    <div class="card">
-      <img src="https://placehold.co/300x150?text=E-Classroom" alt="E-Classroom Platform">
-      <h3>E-Classroom Platform</h3>
-      <p>Collaborative online education portal for students, teachers, and parents.</p>
-      <p><strong>Stack:</strong> Python, Flask, HTML/CSS</p>
+  <!-- Parallax Section -->
+  <div class="parallax-section" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+    <div class="parallax-content">
+      <h2>Building the Future with AI</h2>
+      <p>Transforming ideas into intelligent solutions through cutting-edge technology</p>
     </div>
   </div>
-</section>
 
-<section id="experience">
-  <h2>Experience</h2>
-  <ul>
-    <li><strong>Data Science Intern @ <a href="https://www.camerinfolks.com" target="_blank">Camerin Folks</a></strong> – Nov 2023 to June 2024<br>
-      Developed core Python scripts for data cleaning, EDA, and visualization using Pandas, NumPy, and Matplotlib.
-    </li>
-    <li><strong>AI Engineer @ <a href="https://camerininnovate.com/" target="_blank">Camerin Innovate</a></strong> – Aug 2024 to Present</li>
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <!-- Enhanced Medical-themed image for LifeCurAI -->
+        <div class="medical-theme-container" id="medicalContainer">
+          <div class="medical-dashboard">
+            <div class="dashboard-header">
+              LifeCurAI - Diagnostic Assistant
+            </div>
+            <div class="dashboard-content">
+              <div class="patient-side">
+                <div class="doctor-icon">
+                  <i class="fas fa-user-md"></i>
+                </div>
+                <div class="symptoms-list">
+                  <div class="symptom-item">
+                    <div class="symptom-dot"></div>
+                    <span>Fever: 101.2°F</span>
+                  </div>
+                  <div class="symptom-item">
+                    <div class="symptom-dot"></div>
+                    <span>Cough: Persistent</span>
+                  </div>
+                  <div class="symptom-item">
+                    <div class="symptom-dot"></div>
+                    <span>Headache: Moderate</span>
+                  </div>
+                  <div class="symptom-item">
+                    <div class="symptom-dot"></div>
+                    <span>Fatigue: High</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ai-side">
+                <div class="ai-analysis">
+                  <div class="ai-icon">
+                    <i class="fas fa-brain"></i>
+                  </div>
+                  <span>AI Analysis</span>
+                </div>
+                <div class="diagnosis-box">
+                  <strong>Diagnosis:</strong> Influenza A<br>
+                  <strong>Confidence:</strong> 92%
+                </div>
+                <div class="treatment-plan">
+                  <strong>Treatment:</strong> Rest, Hydration, Antivirals
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="medical-data-stream" id="medicalDataStream"></div>
+          <div class="heartbeat">
+            <div class="heartbeat-line">
+              <div class="pulse"></div>
+              <div class="pulse"></div>
+              <div class="pulse"></div>
+            </div>
+          </div>
+        </div>
+        <h3>LifeCurAI - AI Powered Diagnostic Assistant</h3>
+        <p>Converts doctor–patient conversations into text, detects symptoms, predicts diseases using a Random Forest model, and generates treatment plans. Includes drug side effect checks via OpenFDA API in a Gradio UI.</p>
+        <p><strong>Stack:</strong> OpenAI Whisper, Python, Random Forest, Gradio, OpenFDA API</p>
+        <div class="project-links">
+          <a href="https://colab.research.google.com/drive/1rufvmcZ-H_wSjZKHfC_DXY65tTkZfrXM?usp=sharing" target="_blank" class="project-link">
+            <i class="fab fa-google"></i> Google Colab
+          </a>
+        </div>
+      </div>
 
-      Building an AI-powered diagnostic assistant with real-time transcription capabilities.
-    </li>
-  </ul>
-</section>
+      <div class="card">
+        <!-- Enhanced YouTube-themed image for UtubeGist -->
+        <div class="youtube-theme-container" id="youtubeContainer">
+          <div class="youtube-player">
+            <div class="ai-processing">
+              <i class="fas fa-robot"></i>
+              <span>AI Processing</span>
+            </div>
+            <div class="video-thumbnails">
+              <div class="thumbnail"></div>
+              <div class="thumbnail"></div>
+              <div class="thumbnail"></div>
+            </div>
+            <div class="summary-box">
+              <div class="line short"></div>
+              <div class="line"></div>
+              <div class="line short"></div>
+            </div>
+            <div class="video-controls">
+              <div class="youtube-play-button">
+                <i class="fas fa-play"></i>
+              </div>
+              <div class="progress-bar-video">
+                <div class="progress-video"></div>
+              </div>
+              <div class="youtube-play-button">
+                <i class="fas fa-volume-up"></i>
+              </div>
+            </div>
+          </div>
+          <div class="data-stream" id="dataStream"></div>
+          <div id="transcriptContainer"></div>
+        </div>
+        <h3>UtubeGist</h3>
+        <p>AI summarizer for YouTube videos using OpenAI APIs and transcript parsing for Q&A interaction with a Gradio UI.</p>
+        <p><strong>Stack:</strong> OpenAI, Python, Transformers, Gradio</p>
+        <div class="project-links">
+          <a href="https://colab.research.google.com/drive/15sgB1lyD6IZH6B3X55s-xCDCYfF2ozmA?usp=sharing" target="_blank" class="project-link">
+            <i class="fab fa-google"></i> Google Colab
+          </a>
+        </div>
+      </div>
 
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2090&q=80" alt="Hoopwatch Project">
+        <h3>Hoopwatch</h3>
+        <p>AI referee tool using YOLO and pose estimation for sports officiating and training.</p>
+        <p><strong>Stack:</strong> YOLO, OpenCV, Python, Django</p>
+        <div class="project-links">
+          <a href="#" class="project-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="E-Classroom Platform">
+        <h3>E-Classroom Platform</h3>
+        <p>Collaborative online education portal for students, teachers, and parents.</p>
+        <p><strong>Stack:</strong> Python, Flask, HTML/CSS</p>
+        <div class="project-links">
+          <a href="#" class="project-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parallax Section -->
+  <div class="parallax-section" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+    <div class="parallax-content">
+      <h2>Innovation Through Technology</h2>
+      <p>Creating solutions that bridge the gap between data and decision-making</p>
+    </div>
+  </div>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <ul>
+      <li><strong>Data Science Intern @ <a href="https://www.camerinfolks.com" target="_blank">Camerin Folks</a></strong> – Nov 2023 to June 2024<br>
+        Developed core Python scripts for data cleaning, EDA, and visualization using Pandas, NumPy, and Matplotlib.
+      </li>
+      <li><strong>AI Engineer @ <a href="https://camerininnovate.com/" target="_blank">Camerin Innovate</a></strong> – Aug 2024 to Present<br>
+        Building an AI-powered diagnostic assistant with real-time transcription capabilities.
+      </li>
+    </ul>
+  </section>
 
   <footer>
     <p>&copy; 2025 RohanKrishna K.</p>
   </footer>
 
   <script>
+    // Theme toggle functionality
     const toggleBtn = document.getElementById("darkModeToggle");
     const icon = toggleBtn.querySelector("i");
 
@@ -352,6 +1085,7 @@ MCA graduate with practical experience in machine learning, data analysis, and A
       setTheme(currentTheme === "dark" ? "light" : "dark");
     });
 
+    // Typing animation
     const roles = ["AI Engineer", "ML Engineer", "Software Developer", "Data Scientist", "Data Engineer"];
     let i = 0, j = 0, isDeleting = false;
     const typingSpeed = 100, erasingSpeed = 50, delayBetweenWords = 1500;
@@ -380,7 +1114,130 @@ MCA graduate with practical experience in machine learning, data analysis, and A
     }
 
     document.addEventListener("DOMContentLoaded", type);
+
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const winHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset;
+      const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+      document.getElementById('progressBar').style.width = scrollPercent + '%';
+    });
+
+    // Floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random properties
+        const size = Math.random() * 5 + 2;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // YouTube data stream animation
+    function createDataStream() {
+      const dataStream = document.getElementById('dataStream');
+      const transcriptContainer = document.getElementById('transcriptContainer');
+      
+      // Create data particles
+      for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('data-particle');
+        
+        // Random properties
+        const size = Math.random() * 6 + 2;
+        const posX = Math.random() * 100;
+        const duration = Math.random() * 10 + 10;
+        const delay = Math.random() * 15;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        dataStream.appendChild(particle);
+      }
+      
+      // Create transcript text elements
+      const transcriptWords = ["AI", "Summary", "Transcript", "YouTube", "Video", "Processing", "Analysis", "Content"];
+      for (let i = 0; i < 8; i++) {
+        const text = document.createElement('div');
+        text.classList.add('transcript-text');
+        text.textContent = transcriptWords[i];
+        
+        // Random properties
+        const posX = Math.random() * 80 + 10;
+        const posY = Math.random() * 60 + 20;
+        const duration = Math.random() * 5 + 5;
+        const delay = Math.random() * 10;
+        
+        text.style.left = `${posX}%`;
+        text.style.top = `${posY}%`;
+        text.style.animationDuration = `${duration}s`;
+        text.style.animationDelay = `${delay}s`;
+        
+        transcriptContainer.appendChild(text);
+      }
+    }
+
+    // Medical data stream animation
+    function createMedicalDataStream() {
+      const medicalDataStream = document.getElementById('medicalDataStream');
+      
+      // Create medical data particles
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('medical-particle');
+        
+        // Random properties
+        const size = Math.random() * 4 + 2;
+        const posX = Math.random() * 100;
+        const duration = Math.random() * 8 + 8;
+        const delay = Math.random() * 10;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        medicalDataStream.appendChild(particle);
+      }
+    }
+
+    // Add floating animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float {
+        0%, 100% { transform: translateY(0) translateX(0); }
+        25% { transform: translateY(-20px) translateX(10px); }
+        50% { transform: translateY(-40px) translateX(-10px); }
+        75% { transform: translateY(-20px) translateX(-5px); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize particles and data streams
+    createParticles();
+    createDataStream();
+    createMedicalDataStream();
   </script>
 </body>
 </html>
-
